@@ -4,11 +4,8 @@ import ml.tchat.plugins.bot.users.UserLevel;
 
 public class SimpleBotCommand extends BotCommand {
 
-    private int counter;
-
     public SimpleBotCommand(String name, boolean responding, String response, UserLevel minUserLevel) {
         super(name, responding, response, minUserLevel, UserLevel.DEFAULT, UserLevel.DEFAULT, UserLevel.DEFAULT);
-        counter = 0;
     }
 
     public SimpleBotCommand(String name, String response, UserLevel minUserLevel) {
@@ -38,10 +35,4 @@ public class SimpleBotCommand extends BotCommand {
     public void setMinUserLevel(UserLevel minUserLevel) {
         setMinUserLevel(minUserLevel, UserLevel.DEFAULT);
     }
-
-    public void incrementCounter() {
-        counter++;
-    } // TODO private?
-
-    public void resetCounter() { counter = 0; } // TODO private?
 }

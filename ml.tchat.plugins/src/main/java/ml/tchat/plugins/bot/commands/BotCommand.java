@@ -9,6 +9,7 @@ public class BotCommand {
     private boolean responding;
     private String response;
     private UserLevel minUserLevel;
+    private int count;
 
     private UserLevel nameModifyingUL;
     private UserLevel responseModifyingUL;
@@ -22,6 +23,7 @@ public class BotCommand {
         this.nameModifyingUL = nameModifyingUL;
         this.responseModifyingUL = responseModifyingUL;
         this.userLevelModifyingUL = userLevelModifyingUL;
+        this.count = 0;
     }
 
     public String getName() {
@@ -143,4 +145,15 @@ public class BotCommand {
     public boolean setUserLevelModifyingUL(UserLevel userLevelModifyingUL, User user) {
         return this.setUserLevelModifyingUL(userLevelModifyingUL, user.getUserLevel());
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    // TODO perms?
+    public void incrementCount() {
+        count++;
+    }
+
+    public void resetCount() { count = 0; }
 }
