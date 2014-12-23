@@ -96,6 +96,11 @@
       <artifactId>atlassian-plugins-main</artifactId>
       <version>RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.8.7</version>
+    </dependency>
   </dependencies>
 
   <repositories>
