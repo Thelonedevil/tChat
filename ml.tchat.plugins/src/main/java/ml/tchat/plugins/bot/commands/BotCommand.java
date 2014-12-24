@@ -1,7 +1,7 @@
 package ml.tchat.plugins.bot.commands;
 
 
-import ml.tchat.plugins.bot.users.User;
+import ml.tchat.plugins.bot.users.ChatUser;
 import ml.tchat.plugins.bot.users.UserLevel;
 
 public class BotCommand {
@@ -38,7 +38,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setName(String name, User user) {
+    public boolean setName(String name, ChatUser user) {
         return this.setName(name, user.getUserLevel());
     }
 
@@ -54,7 +54,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setResponding(boolean responding, User user) {
+    public boolean setResponding(boolean responding, ChatUser user) {
         return this.setResponding(responding, user.getUserLevel());
     }
 
@@ -70,7 +70,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setResponse(String response, User user) {
+    public boolean setResponse(String response, ChatUser user) {
         return this.setResponse(response, user.getUserLevel());
     }
 
@@ -86,7 +86,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setMinUserLevel(UserLevel minUserLevel, User user) {
+    public boolean setMinUserLevel(UserLevel minUserLevel, ChatUser user) {
         return this.setMinUserLevel(minUserLevel, user.getUserLevel());
     }
 
@@ -94,7 +94,7 @@ public class BotCommand {
         return (userLevel.getValue() >= this.minUserLevel.getValue());
     }
 
-    public boolean meetsUserLevel(User user) {
+    public boolean meetsUserLevel(ChatUser user) {
         return meetsUserLevel(user.getUserLevel());
     }
 
@@ -110,7 +110,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setNameModifyingUL(UserLevel nameModifyingUL, User user) {
+    public boolean setNameModifyingUL(UserLevel nameModifyingUL, ChatUser user) {
         return this.setNameModifyingUL(nameModifyingUL, user.getUserLevel());
     }
 
@@ -126,7 +126,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setResponseModifyingUL(UserLevel responseModifyingUL, User user) {
+    public boolean setResponseModifyingUL(UserLevel responseModifyingUL, ChatUser user) {
         return this.setResponseModifyingUL(responseModifyingUL, user.getUserLevel());
     }
 
@@ -142,7 +142,7 @@ public class BotCommand {
         return false;
     }
 
-    public boolean setUserLevelModifyingUL(UserLevel userLevelModifyingUL, User user) {
+    public boolean setUserLevelModifyingUL(UserLevel userLevelModifyingUL, ChatUser user) {
         return this.setUserLevelModifyingUL(userLevelModifyingUL, user.getUserLevel());
     }
 

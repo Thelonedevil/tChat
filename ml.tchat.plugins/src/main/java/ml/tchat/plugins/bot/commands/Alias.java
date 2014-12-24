@@ -1,6 +1,6 @@
 package ml.tchat.plugins.bot.commands;
 
-import ml.tchat.plugins.bot.users.User;
+import ml.tchat.plugins.bot.users.ChatUser;
 import ml.tchat.plugins.bot.users.UserLevel;
 
 public class Alias {
@@ -26,7 +26,7 @@ public class Alias {
         return false;
     }
 
-    public boolean setName(String name, User user) {
+    public boolean setName(String name, ChatUser user) {
         return this.setName(name, user.getUserLevel());
     }
 
@@ -46,7 +46,7 @@ public class Alias {
         return false;
     }
 
-    public boolean setCommand(String command, User user) {
+    public boolean setCommand(String command, ChatUser user) {
         return this.setCommand(command, user.getUserLevel());
     }
 
@@ -66,7 +66,7 @@ public class Alias {
         return false;
     }
 
-    public boolean setModifyingUL(UserLevel modifyingUL, User user) {
+    public boolean setModifyingUL(UserLevel modifyingUL, ChatUser user) {
         return this.setModifyingUL(modifyingUL, user.getUserLevel());
     }
 

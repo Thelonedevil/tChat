@@ -1,6 +1,6 @@
 package ml.tchat.plugins.bot.commands;
 
-import ml.tchat.plugins.bot.users.User;
+import ml.tchat.plugins.bot.users.ChatUser;
 import ml.tchat.plugins.bot.users.UserLevel;
 
 
@@ -28,7 +28,7 @@ public class ActionBotCommand extends BotCommand {
         return false;
     }
 
-    public boolean setEnabled(boolean enabled, User user) {
+    public boolean setEnabled(boolean enabled, ChatUser user) {
         return this.setEnabled(enabled, user.getUserLevel());
     }
 
@@ -44,7 +44,7 @@ public class ActionBotCommand extends BotCommand {
         return false;
     }
 
-    public boolean setScript(String script, User user) {
+    public boolean setScript(String script, ChatUser user) {
         return this.setScript(script, user.getUserLevel());
     }
 
@@ -60,7 +60,7 @@ public class ActionBotCommand extends BotCommand {
         return false;
     }
 
-    public boolean setActionModifyingUL(UserLevel actionModifyingUL, User user) {
+    public boolean setActionModifyingUL(UserLevel actionModifyingUL, ChatUser user) {
         return this.setActionModifyingUL(actionModifyingUL, user.getUserLevel());
     }
 }

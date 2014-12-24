@@ -1,16 +1,16 @@
 package ml.tchat.plugins.bot.users;
 
 
-public class User {
+public class ChatUser {
     private final String userName;
     private UserLevel userLevel;
 
-    public User(String userName, UserLevel userLevel) {
+    public ChatUser(String userName, UserLevel userLevel) {
         this.userName = userName;
         this.userLevel = userLevel;
     }
 
-    public User(String userName) {
+    public ChatUser(String userName) {
         this(userName, UserLevel.DEFAULT);
     }
 
