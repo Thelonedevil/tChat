@@ -1,4 +1,4 @@
-package ml.tchat.plugins.bot;
+package ml.tchat.plugins.bot.database;
 
 /**
  * Created by justin on 24/12/2014.

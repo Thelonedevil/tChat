@@ -1,4 +1,4 @@
-package ml.tchat.plugins.bot;
+package ml.tchat.plugins.bot.database;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,11 +8,15 @@ import java.util.HashMap;
 /**
  * Created by justin on 23/12/2014.
  */
-public class DatabaseHelper {
+public class DatabaseWrapper {
     Connection connect;
     Statement statement;
 
-    public DatabaseHelper(String path) {
+    /**
+     *
+     * @param path
+     */
+    public DatabaseWrapper(String path) {
         try {
             File f = new File(path);
             if (f.getParentFile() != null) {
@@ -22,16 +26,16 @@ public class DatabaseHelper {
             connect = connect(path);
             statement = state(connect);
             HashMap<String, String> commandFields = new HashMap<String, String>();
-            commandFields.put(FieldNames.COMMAND,"Text");
-            commandFields.put(FieldNames.EXECUSERLEVEL,"Text");
-            commandFields.put(FieldNames.NAMEMODIFYINGUL,"Text");
-            commandFields.put(FieldNames.RESPONSEMODIFYINGUL,"Text");
-            commandFields.put(FieldNames.USERLEVELMODYFINGUL,"Text");
-            commandFields.put(FieldNames.RESPONSE,"Text");
-            commandFields.put(FieldNames.COUNT,"INTEGER");
-            commandFields.put(FieldNames.ENABLED,"INTEGER");
-            commandFields.put(FieldNames.SCRIPT,"TEXT");
-            commandFields.put(FieldNames.MINARGS,"INTEGER");
+            commandFields.put(FieldNames.COMMAND, "Text");
+            commandFields.put(FieldNames.EXECUSERLEVEL, "Text");
+            commandFields.put(FieldNames.NAMEMODIFYINGUL, "Text");
+            commandFields.put(FieldNames.RESPONSEMODIFYINGUL, "Text");
+            commandFields.put(FieldNames.USERLEVELMODYFINGUL, "Text");
+            commandFields.put(FieldNames.RESPONSE, "Text");
+            commandFields.put(FieldNames.COUNT, "INTEGER");
+            commandFields.put(FieldNames.ENABLED, "INTEGER");
+            commandFields.put(FieldNames.SCRIPT, "TEXT");
+            commandFields.put(FieldNames.MINARGS, "INTEGER");
             createTable("Commands", commandFields);
 
         } catch (SQLException e) {
@@ -112,18 +116,18 @@ public class DatabaseHelper {
 
     /**
      * @param table
-     * @param row_label
-     * @param column
+     * @param identifier
+     * @param fieldName
      * @return A HashMap<Column_label,Value> for the row_label if the row
      * exists, otherwise returns an empty HashMap<String,Object>
      * @throws SQLException
      */
-    public HashMap<String, Object> getRow(String table, String row_label, String column) throws SQLException {
+    public HashMap<String, Object> getRow(String table, String identifier, String fieldName) throws SQLException {
         HashMap<String, Object> row = new HashMap<String, Object>();
         String query = "SELECT * FROM " + table;
         ResultSet rs1 = rs(query);
         while (rs1.next()) {
-            if (rs1.getString(column).equalsIgnoreCase(row_label)) {
+            if (rs1.getString(fieldName).equalsIgnoreCase(identifier)) {
                 ResultSetMetaData rsmd = rs1.getMetaData();
                 int columnsNumber = rsmd.getColumnCount();
                 int index = 1;
@@ -138,7 +142,97 @@ public class DatabaseHelper {
         return row;
     }
 
-    public HashMap<String, Object> getCommandDetails(String table, String command) throws SQLException {
-        return this.getRow(table, command, FieldNames.COMMAND);
+    /**
+     *
+     * @param table
+     * @param identifier
+     * @param fieldName
+     * @return
+     * @throws SQLException
+     */
+    public boolean exists(String table, String identifier, String fieldName) throws SQLException {
+        String query = "SELECT " + fieldName + " FROM " + table;
+        ResultSet rs1 = rs(query);
+        while (rs1.next()) {
+            if (rs1.getString(fieldName).equalsIgnoreCase(identifier)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param command
+     * @return
+     * @throws SQLException
+     */
+    public boolean isCommand(String command) throws SQLException {
+        return this.exists(TableNames.COMMANDS, command, FieldNames.COMMAND);
+    }
+
+    /**
+     * @param table
+     * @param identifier
+     * @param fieldName
+     * @param map
+     * @throws SQLException
+     */
+    public void updateRow(String table, String identifier, String fieldName, HashMap<String, Object> map) throws SQLException {
+        String update = "UPDATE " + table + " SET  ";
+        for (String key : map.keySet()) {
+            update = update + ", " + key + "=" + map.get(key);
+        }
+        update = update + " WHERE " + fieldName + "=" + identifier + " ";
+        statement.executeUpdate(update);
+    }
+
+    /**
+     * @param table
+     * @param identifier
+     * @param fieldName
+     * @param map
+     * @throws SQLException
+     */
+    public void insertRow(String table, String identifier, String fieldName, HashMap<String, Object> map) throws SQLException {
+        String first = "INSERT INTO " + table + " (" + fieldName;
+        String last = "VALUES ('" + identifier + "'";
+        for (String key : map.keySet()) {
+            first = first + (", " + key);
+            last = last + (", " + map.get(key));
+        }
+        first = first + ") ";
+        last = last + ")";
+        String update = first + last;
+        statement.executeUpdate(update);
+
+    }
+
+    /**
+     *
+     * @param command
+     * @return
+     * @throws SQLException
+     */
+    public HashMap<String, Object> getCommandDetails(String command) throws SQLException {
+        return this.getRow(TableNames.COMMANDS, command, FieldNames.COMMAND);
+    }
+
+    /**
+     *
+     * @param map
+     * @throws SQLException
+     */
+    public void updateCommand(HashMap map) throws SQLException {
+        this.updateRow(TableNames.COMMANDS, (String) map.get(FieldNames.COMMAND), FieldNames.COMMAND, map);
+    }
+
+    /**
+     *
+     * @param map
+     * @throws SQLException
+     */
+    public void addCommand(HashMap map) throws SQLException {
+        this.insertRow(TableNames.COMMANDS, (String) map.get(FieldNames.COMMAND), FieldNames.COMMAND, map);
     }
 }
