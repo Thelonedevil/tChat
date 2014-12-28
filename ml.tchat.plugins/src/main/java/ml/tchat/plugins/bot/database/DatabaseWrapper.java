@@ -36,7 +36,7 @@ public class DatabaseWrapper {
             commandFields.put(FieldNames.ENABLED, "INTEGER");
             commandFields.put(FieldNames.SCRIPT, "TEXT");
             commandFields.put(FieldNames.MINARGS, "INTEGER");
-            createTable("Commands", commandFields);
+            createTable(TableNames.COMMANDS, commandFields);
 
         } catch (SQLException e) {
             e.printStackTrace();
