@@ -232,6 +232,12 @@ public class DatabaseWrapper {
         this.updateRow(TableNames.COMMANDS, (String) map.get(FieldNames.COMMAND), FieldNames.COMMAND, map);
     }
 
+    public void updateComamnd(String command,String fieldName, String fieldValue) throws SQLException {
+        HashMap<String,Object> map = this.getCommandDetails(command);
+        map.replace(fieldName,fieldValue);
+        updateCommand(map);
+    }
+
     /**
      *
      * @param map
