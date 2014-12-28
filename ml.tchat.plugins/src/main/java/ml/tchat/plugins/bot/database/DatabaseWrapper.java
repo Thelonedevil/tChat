@@ -208,6 +208,11 @@ public class DatabaseWrapper {
 
     }
 
+    public void removeRow(String table, String identifier, String fieldName) throws SQLException {
+        String update = "DELETE FROM "+ table + " WHERE "+ fieldName+"="+identifier;
+        statement.executeUpdate(update);
+    }
+
     /**
      *
      * @param command
@@ -234,5 +239,9 @@ public class DatabaseWrapper {
      */
     public void addCommand(HashMap map) throws SQLException {
         this.insertRow(TableNames.COMMANDS, (String) map.get(FieldNames.COMMAND), FieldNames.COMMAND, map);
+    }
+
+    public void removeCommand(String command) throws SQLException {
+        this.removeRow(TableNames.COMMANDS,command,FieldNames.COMMAND);
     }
 }
